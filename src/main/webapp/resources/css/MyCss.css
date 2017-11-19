@@ -1,0 +1,35 @@
+
+ .dotted {
+	border: 1px solid #424242;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px
+    
+ }
+.navbar-default{
+	border-radius: 0px;
+	margin-bottom: 0px;
+}
+.indexcatimage {
+	box-shadow: 10px 10px 5px grey;
+	border: 1px solid #424242;
+    border-radius: 4px;
+    padding: 5px;
+    width: 365px;
+}
+.catimage-div {
+	padding-top:40px;
+	padding-bottom:50px;
+}
+.proimage{
+	box-shadow: 10px 10px 5px grey;
+	border: 1px solid #424242;
+    border-radius: 4px;
+    padding: 5px;
+}
+.proimage:hover{
+	box-shadow: 12px 12px 5px grey;
+	border: 1px solid #424242;
+    border-radius: 4px;
+    padding: 5px;
+}

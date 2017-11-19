@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+    <security:global-method-security secured-annotations="enabled" />
+    
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		
+		
+		<!-- <property name="url" value="jdbc:mysql://mysql5.gear.host/smartchoice"/>
+	   	<property name="username" value="smartchoice"/>
+	   	<property name="password" value="Gs0Iz1?_9N0g"/> -->
+	   	
+	   	
+	 	<property name="url" value="jdbc:mysql://localhost:3306/smartchoice"/>
+	   	<property name="username" value="root"/>
+	   	<property name="password" value="root"/>
+	   	
+	</bean>
+	
+    <bean id="LoginFailedHander" class="com.hibernate.LoginFailedHander" />
+    <bean id="LoginSucessHander" class="com.hibernate.LoginSucessHander"/>
+    
+    <security:http auto-config="true">
+        <!-- permitAll URL -->
+        <security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/index" access="permitAll" />
+        <security:intercept-url pattern="/loginpage" access="permitAll" />
+		<security:intercept-url pattern="/product" access="permitAll" />
+		<security:intercept-url pattern="/SignUP" access="permitAll" />
+		<security:intercept-url pattern="/AddCustomerToDb" access="permitAll" />
+        <security:intercept-url pattern="/UpdateProfile/{id}" access="permitAll" />
+		<security:intercept-url pattern="/UpdateProfileToDB" access="permitAll" />	
+		<security:intercept-url pattern="/MyProfiles/{id}" access="permitAll" />
+		<security:intercept-url pattern="/ViewProduct/{id}" access="permitAll" />
+        <security:intercept-url pattern="/productbysubcat/{id}" access="permitAll" />
+		<security:intercept-url pattern="/product/{id}" access="permitAll" />
+        <security:intercept-url pattern="/Searchdata" access="permitAll" />
+        
+        <!-- USER URL -->
+        <security:intercept-url pattern="/AddCartToDB" access="hasRole('USER') or hasRole('ADMIN') or hasRole('SUPPLIER')" />
+        
+        
+        <!-- ADMIN URL -->
+        <security:intercept-url pattern="/Admin" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/AddCategory" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/AddSubCategory" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/AddSubCategoryToDb" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/AddCategoryToDb" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewProducts" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewBlockedProducts" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewBlockedCustomers" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewBlockedAdmins" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewBlockedSuppliers" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewCustomers" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewAdmins" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="ViewSuppliers" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewCategories" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewLoginHistory" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewOneCategory/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewOneProduct/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewOneCustomer/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewOneAdmin/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/ViewOneSupplier/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/DeleteOneProduct/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/UnblockOneProduct/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/UnblockOneCustomer/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/UnblockOneAdmin/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/UnblockOneSupplier/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/DeleteOneCustomer/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/DeleteOneAdmin/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/DeleteOneSupplier/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/DeleteOneCategory/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/delcustomers" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/deladmins" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/delsuppliers" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/delProducts" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/deletcategories" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/changeRole" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/UpdateAdminProfile/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/UpdateAdminToDB" access="hasRole('ADMIN')" /> 
+        <security:intercept-url pattern="/UpdateOneCategory/{id}" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/UpdateCategoryToDB" access="hasRole('ADMIN')" />
+
+        <!-- SUPPLIER URL -->
+         <security:intercept-url pattern="/Supplier" access="hasRole('SUPPLIER')" />
+        <security:intercept-url pattern="/AddProduct" access="hasRole('SUPPLIER')" />
+        <security:intercept-url pattern="/AddProductToDb" access="hasRole('SUPPLIER')" />
+        <security:intercept-url pattern="/ViewSupplierProducts/{id}" access="hasRole('SUPPLIER')" />
+        <security:intercept-url pattern="/BlockedSupplierProducts/{id}" access="hasRole('SUPPLIER')" />
+        <security:intercept-url pattern="/UpdateOneProduct/{id}" access="hasRole('SUPPLIER')" />
+        <security:intercept-url pattern="/UpdateProductToDB" access="hasRole('SUPPLIER')" />
+        
+        <!-- Override default login and logout pages -->
+        <security:form-login login-page="/loginpage" 
+        					 username-parameter="email"
+        					 password-parameter="password"
+                             default-target-url="/index" 
+                             authentication-failure-handler-ref="LoginFailedHander"
+                             authentication-success-handler-ref="LoginSucessHander"
+                             authentication-failure-url="/loginpage?error=1" />
+        <security:logout logout-url="/logout" logout-success-url="/index" />
+        
+         <security:csrf disabled="true"/>
+    </security:http>
+
+    <security:authentication-manager>
+    
+        <security:authentication-provider >
+            
+            <security:jdbc-user-service data-source-ref="dataSource"  
+             users-by-username-query="select email,password,true from customers where email=?" 
+             authorities-by-username-query="select email,role from customers where email=?"
+             />
+            
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>
